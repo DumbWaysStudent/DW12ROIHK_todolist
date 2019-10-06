@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet} from 'react-native'
-import { Container, Button, Header, Content, List, ListItem, Text, Left, Item, Input} from 'native-base';
+import { Container, Icon, Button, Header, Content, List, ListItem, Text, Left, Item, Input} from 'native-base';
 export default class ListItemSelectedExample extends Component {
   constructor(props) {
     super(props)
@@ -19,7 +19,7 @@ export default class ListItemSelectedExample extends Component {
     }
   }
 
-  handleButton(){
+  handleAddBtn(){
     if(this.state.toDo === ''){
       alert('Masukan Input')
     } else {
@@ -33,15 +33,28 @@ export default class ListItemSelectedExample extends Component {
     }
   }
   
+  handleRemoveBtn(idx){
+    for(let i = 0; i < this.state.data.length; i++){
+      if (this.state.data[i].id == (idx)){
+        this.setState((state) => {
+          const list = state.data.splice(i,1)
+          return list
+        })
+      }
+    }
+  }
+  
   render() {
     
-    
-    const doubled = this.state.data.map(({value}) =>
+    const doubled = this.state.data.map((datas, key) =>
     <List>
     <ListItem selected>
       <Left>
-        <Text>{value}</Text>
+        
+        <Text key={datas.id}>{datas.value}</Text>
       </Left>
+        <Icon name='trash' 
+        onPress={() => this.handleRemoveBtn(datas.id)} />     
     </ListItem>
     </List>);
           
@@ -55,7 +68,7 @@ export default class ListItemSelectedExample extends Component {
                 value={this.state.toDo}
                 onChangeText={(text) => this.setState({ toDo: text })}/>
               <Button small primary 
-               onPress={() => this.handleButton()}>
+               onPress={() => this.handleAddBtn()}>
                 <Text> Add Todo </Text>
               </Button>
             </Item>            

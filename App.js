@@ -73,7 +73,10 @@ export default class ListItemSelectedExample extends Component {
       </View>
         <Text key={datas.id}>{datas.value}</Text>
       </Left>
-        <Icon name='trash' 
+      <Icon name='create' 
+        onPress={() => this.handleRemoveBtn(datas.id)} />
+        <Text>    </Text>     
+      <Icon name='trash' 
         onPress={() => this.handleRemoveBtn(datas.id)} />     
     </ListItem>
     </List>);
